@@ -1,0 +1,209 @@
+ <!DOCTYPE html>
+<html>
+
+<head>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+        <title>Soalarkollektiv</title>
+        <meta charset="UTF-8" />
+
+	<style>
+		html{
+			max-width:100%;
+			box-sizing: border-box;
+			font-family: "Roboto", sans-serif;
+			font-weight: 100;
+			font-style: normal;
+		}
+
+		body {
+			height: 100%;
+			display: flex;
+			flex-flow: column wrap;
+			background-color: hsl(217deg, 32.6%, 17.5%);
+			color: white;
+		}
+
+		main{
+			flex: 1;
+		}
+			
+		footer{
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			padding: 1em 0;
+			border-top: 1px solid white;
+			flex: none;
+			width: 100%;
+			color: white;
+		}
+
+		.footer__paragraph {
+			margin: 0;
+			font-size: small; 
+		}
+
+		a:visited {
+			color: white;
+		}
+
+		.main-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			max-width: 100%;
+		}
+		
+		.main-container > h2 {
+			text-align: center;
+			margin: 0 0 0.3rem 0;
+		}
+
+		[role="doc-subtitle"]{
+			margin: 0 0 1rem 0;
+		}
+
+		header{
+			height: 5vh;
+			display: flex;
+			flex-direction: row;
+			justify-content: start;
+			align-items: center;
+		}
+
+		header span{
+			margin: 0 2rem;
+		}
+
+		.logo{
+			max-width: 4em;
+			max-height: 2em;
+		}
+
+		.card{
+			width: 100%;
+			height: auto;
+			display: flex;
+			flex-direction: column;
+			margin: 0 0 2em 0;
+			text-align: justify;
+			justify-content: center;
+		}
+
+		.card-img{
+			width: 100%;
+			height: auto;
+			border-radius: 4px 4px 0 0 ;
+			background-repeat: no-repeat;
+			background-size: cover;
+			shape-margin: 0.75rem;
+			font-style: italic;
+			vertical-align: middle;
+		}
+
+		p {
+			margin: 0;
+		}
+
+		 h4 {
+			text-align: center;
+			margin: 0.3em 0;
+		}
+
+
+		@media (min-width: 640px){
+			.card{
+				width: 100%;
+			}
+	     	 }
+
+		@media (min-width: 768px){
+			.card{
+				width: 90%;
+			}
+	     	 }
+
+
+	      @media (min-width: 1024px){
+			.card{
+				width: 80%;
+			}
+		}
+
+	      @media (min-width: 1280px){
+			.card{
+				width: 75%;
+			}
+		}
+
+	      @media (min-width: 1536px){
+			.card{
+				width: 70%;
+			}
+		}
+
+
+	</style>
+
+</head>
+
+<body>
+
+	<header>
+		<img src="ressources/Logo_komplett_V2.png" alt="Logo Solarkollektiv" class="logo" >
+		<span></span>
+	</header>
+
+	<main id="main-page"> </main>
+
+	<hr>
+	<footer >
+		<a href="impressum" onclick="route()">Impressum</a> 
+
+		<div>
+			<p class="footer__paragraph"> Solarkollektiv Gmbh </p>
+			<p class="footer__paragraph"> Werner-Heisenberg-Straße 3 </p>
+			<p class="footer__paragraph"> 39106 Magdeburg </p>
+			<p  class="footer__paragraph"> 0391 5576 0026 </p>
+			<p class="footer__paragraph"> info(at)solarkollektiv.eu </p>
+		</div>
+		<a href="/" onclick="route()">home</a> 
+	</footer>
+
+	<script>
+
+		const route = (event) => {
+		    event = event || window.event;
+		    event.preventDefault();
+		    window.history.pushState({}, "", event.target.href);
+		    handleLocation();
+		};
+
+		const routes = {
+		    404: "/404.html",
+		    "/": "/home.html",
+		    "/impressum": "/impressum.html",
+		};
+
+
+		const handleLocation = async () => {
+		    const path = window.location.pathname;
+		    const route = routes[path] || routes[404];
+		    const html = await fetch(route).then((data) => data.text());
+		    document.getElementById("main-page").innerHTML = html;
+		};
+
+		window.onpopstate = handleLocation;
+		window.route = route;
+
+		handleLocation();
+
+	</script> 
+
+</body>
+
+
+</html> 
